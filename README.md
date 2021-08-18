@@ -18,8 +18,10 @@ The images analysed are taken by the [Total Sky Imager (TSI)](ftp://ftp1.esrl.no
 
 ![fogbow](/data/examples/fogbow.jpg) ![iceoptics](/data/examples/iceoptics.jpg) ![no_optics](/data/examples/no_optics.jpg) 
 
-A small training dataset of 218 labeled photos is avaliable under /data/trainingset. The full training set of 18129 labeled photos can be obtained by contacting me.
+A small training dataset of 218 labeled photos is avaliable under /data/training\ set. The full training set of 18129 labeled photos can be obtained by contacting me.
 
 ## Code
+
+I present two different approaches for building the neural network: Training a model from scratch and utilizing transfer learning. As of now, I have had best success with the transfer learning approach using the Xception model as base, but the posibilities are endless so better results can most likely be found if using other models. I owe a massive thanks to the enoumous amount of guides, tutorials and examples found online which I've massively copy-pasted from, especially the guides by [Keras](https://keras.io/guides/). While I'm at it, thanks to my old friend [Max Hipperson](https://www.ucl.ac.uk/astrophysics/max-hipperson-phd-student) from the "Extrasolar Planets" research group at UCL for a gentle introduction to ML and lots of links.
 
 ## Results
