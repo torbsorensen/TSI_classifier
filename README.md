@@ -16,7 +16,7 @@ The work has been done in Python (3.7.10) on a Jupyter Notebook using Tensorflow
 
 The images analysed are taken by the [Total Sky Imager (TSI)](ftp://ftp1.esrl.noaa.gov/psd3/arctic/summit/tsi/0_docs/Summit_Datagrams_totalskyimager.pdf) on the Summit Station, Greenland, an instrument run from the roof of the ICECAPS Observatory. Below are three examples of photos taken by the TSI, one with a fogbow, one with frozen fogbow and one without any bow:
 
-![fogbow](TSI_classifier/data/examples/fogbow.jpg) ![iceoptics](/data/example/iceoptics.jpg) ![no_optics](/data/example/no_optics.jpg) 
+![fogbow](/data/examples/fogbow.jpg) ![iceoptics](/data/example/iceoptics.jpg) ![no_optics](/data/example/no_optics.jpg) 
 
 ## Code
 
