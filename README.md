@@ -24,4 +24,8 @@ A small training dataset of 218 labeled photos is available under /data/training
 
 I present two different approaches for building the neural network: Training a model from scratch and utilising transfer learning. As of now, I have had best success with the transfer learning approach using the Xception model as base, but the possibilities are endless so better results can most likely be found if using other models. I owe a massive thanks to the enormous amount of guides, tutorials and examples found online which I've massively copy-pasted from, especially the guides by [Keras](https://keras.io/guides/). While I'm at it, thanks to my old friend [Max Hipperson](https://www.ucl.ac.uk/astrophysics/max-hipperson-phd-student) from the "Extrasolar Planets" research group at UCL for a gentle introduction to ML and lots of links.
 
+The code for transfer learning + fine-tuning is found in the transfer.ipynb file.
+The code for building a model from scratch is found in the classifier.ipynb file.
+Code for loading an already trained model and predicting on data is found in the predictor.ipynb file.
+
 ## Results
