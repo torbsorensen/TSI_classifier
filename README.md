@@ -20,12 +20,28 @@ The images analysed are taken by the [Total Sky Imager (TSI)](ftp://ftp1.esrl.no
 
 A small training dataset of 218 labeled photos is available under /data/training. The full training set of 18129 labeled photos can be obtained by contacting me. A further test dataset is provided under /data/test, consisting of 214 labeled photos.
 
+A log of the dates of data that has been used in training the model is found in training_datasets.txt.
+
 ## Code
 
 I present two different approaches for building the neural network: Training a model from scratch and utilising transfer learning. As of now, I have had best success with the transfer learning approach using the Xception model as base, but the possibilities are endless so better results can most likely be found if using other models. I owe a massive thanks to the enormous amount of guides, tutorials and examples found online which I've massively copy-pasted from, especially the guides by [Keras](https://keras.io/guides/). While I'm at it, thanks to my old friend [Max Hipperson](https://www.ucl.ac.uk/astrophysics/max-hipperson-phd-student) from the "Extrasolar Planets" research group at UCL for a gentle introduction to ML and lots of links.
 
 The code for transfer learning + fine-tuning is found in the transfer.ipynb file.
+
 The code for building a model from scratch is found in the classifier.ipynb file.
+
 Code for loading an already trained model and predicting on data is found in the predictor.ipynb file.
 
+The file predict_functions.py contains supporting functions used in all notebooks. A rough description of their functions are found at the end of the transfer.ipynb file.
+
 ## Results
+
+## Improving the classifier
+
+While the final classifier is useful there is still room for improvement. Here is a list of my ideas for improving the model, which should all be possible given time:
+
+* Adding more training data
+* Cropping out the 'interesting' part of the image (but take care as instrument is reinstalled every year the sky-part of the image change position)
+* If cropped and centred: rotate so that sun is always at the same place
+* Try different pre-trained models
+* Continue training for longer
