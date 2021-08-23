@@ -36,6 +36,14 @@ The file predict_functions.py contains supporting functions used in all notebook
 
 ## Results
 
+The best results have shown from the transfer learning approach with fine tuning. The best model is saved in /saved_models/final_model. The confusion matrix and classification report produced by the final model on the unseen /data/test set are shown underneath. Note however, that the test set is not perfect as only very few ice and fogbow occur. 
+
+The final model is set up in the transfer.ipynb-file and has undergone 13 epochs of transfer learning and XXXXXX epochs of finetuning, and had a validation loss of XXXXX and validation accuracy of XXXXX.
+
+CONFUSION MATRIX 
+
+CLASSIFICATION REPORT
+
 ## Improving the classifier
 
 While the final classifier is useful there is still room for improvement. Here is a list of my ideas for improving the model, which should all be possible given time:
