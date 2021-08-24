@@ -32,6 +32,8 @@ The code for building a model from scratch is found in the classifier.ipynb file
 
 Code for loading an already trained model and predicting on data is found in the predictor.ipynb file.
 
+The codes for transforming the CSV files to Xarray and from there to NetCDF-file is found in CSV_to_xarray_and_plot.ipynb. The file also contains some example plots of how the data can be analysed. 
+
 The file predict_functions.py contains supporting functions used in all notebooks. A rough description of their functions are found at the end of the transfer.ipynb file.
 
 ## Results
@@ -53,3 +55,4 @@ While the final classifier is useful there is still room for improvement. Here i
 * If cropped and centred: rotate so that sun is always at the same place
 * Try different pre-trained models
 * Continue training for longer
+* Building custom model
