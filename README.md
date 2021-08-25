@@ -18,7 +18,7 @@ The images analysed are taken by the [Total Sky Imager (TSI)](ftp://ftp1.esrl.no
 
 <img src="/data/examples/fogbow.jpg" alt="fogbow" width="250"/> <img src="/data/examples/iceoptics.jpg" alt="iceoptics" width="250"/> <img src="/data/examples/no_optics.jpg" alt="no_optics" width="250"/>
 
-A small training dataset of 218 labeled photos is available under /data/training. The full training set of 18129 labeled photos can be obtained by contacting me. A further test dataset is provided under /data/test, consisting of 214 labeled photos.
+A small training dataset of 218 labeled photos is available under /data/training. The full training set of 18129 labeled photos are found in /data/training_full. A further test dataset is provided under /data/test, consisting of 214 labeled photos.
 
 A log of the dates of data that has been used in training the model is found in training_datasets.txt.
 

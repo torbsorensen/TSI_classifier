@@ -1,6 +1,27 @@
 # Predict raw datasets, Make array of filenames and predictions for a whole day from compressed file
 
 def MassPredictor(tar_files_path, predictions_path, model, excludelist=[]):
+    """Predicts classification of compressed TSI photos
+    
+    If 'excludelist' isn't defined, no files are excluded from prediction.
+    
+    Parameters
+    ----------
+    tar_files_path : str
+        The filepath to the compressed TSI photos. Photos are expected to be of
+        .jpg format compressed with a .tar.gz ending
+
+    predictions_path : str
+        The filepath to where the CSV files containing the predictions are saved
+
+    model : tf.keras.Model() class
+        The model to be used in predicting the photos
+
+    excludelist : str, list of str, optional
+        Filenames of files that should not be predicted, e.g. other files in folder, files already 
+        predicted or corrupted files (default is none)
+    """
+
     import tarfile
     import re
     import os
@@ -52,6 +73,43 @@ def MassPredictor(tar_files_path, predictions_path, model, excludelist=[]):
 
 # Lookup predictions and filter out the ones with highest confidence
 def FilterPredictions(predicted_path, lower_limit, higher_limit=1.0, excludelist=[]):
+    """Reads predictions off CSV files and output the predicted files within defined 
+    confidence limits.
+    
+    If 'higher_limit' isn't defined, the higher limit is set to 1.0, i.e. the highest 
+    possible limit. 
+
+    If 'excludelist' isn't defined, no files are excluded from reading.
+    
+    Parameters
+    ----------
+    predicted_path : str
+        The filepath to where the CSV files containing the predictions are saved
+
+    lower_limit : float
+        The lower confidence limit of the files included, should normally be between 0 and 1.
+
+    higher_limit : float, optional
+        The higher confidence limit of the files included, should be above 0 and max 1 (default is 1.0)
+
+    excludelist : str, list of str, optional
+        Filenames of files that should not be included, e.g. other files in folder, or corrupted files 
+        (default is none)
+
+    Outputs
+    ----------
+    fog_detections, ice_detections, no_detections
+
+    fog_detections : list of str
+        List of images with fog detected within defined limits 
+
+    ice_detections : list of str
+        List of images with ice detected within defined limits 
+
+    no_detections : list of str
+        List of images with none detected within defined limits 
+    """
+
     import csv
     import os
     import numpy as np
@@ -89,6 +147,28 @@ def FilterPredictions(predicted_path, lower_limit, higher_limit=1.0, excludelist
 
 # moving detections to inspection folder
 def ExportFilteredFiles(tar_files_path, export_path, fog_detections,ice_detections,no_detections):
+    """Copies the selected files from compressed tar.gz files to a new folder, sorted according 
+    to classification.
+
+    Parameters
+    ----------
+    tar_files_path : str
+        The filepath to the compressed TSI photos. Photos are expected to be of
+        .jpg format compressed with a .tar.gz ending
+    
+    export_path : str
+        The filepath where the photos are copied to. Folder should already exist. 
+
+    fog_detections : list of str
+        The list of fog detections outputted by FilterPredictions
+
+    ice_detections : list of str
+        The list of ice detections outputted by FilterPredictions
+
+    no_detections : list of str
+        The list of none detections outputted by FilterPredictions
+    """
+
     import re
     import tarfile
     import pathlib
@@ -154,6 +234,19 @@ def ExportFilteredFiles(tar_files_path, export_path, fog_detections,ice_detectio
 
 
 def TrainingProgress(history, epochs, filename_path):
+    """Shows and saves graph of training progress
+
+    Parameters
+    ----------
+    history : model.fit output
+        The output from the training of a model
+    
+    epochs : int
+        The number of epochs trained in training session
+
+    filename_path : str
+        The filepath to where the graph is saved
+    """
     
     import matplotlib.pyplot as plt
 
@@ -182,6 +275,24 @@ def TrainingProgress(history, epochs, filename_path):
 
 
 def PredictImage(path, Model):
+    """Predicts the classification of a single image
+
+    Parameters
+    ----------
+    path : str
+        The filepath to the image to predict on
+    
+    Model : tf.keras.Model() model
+        The model used to predict on image
+
+    Outputs
+    ----------
+    prediction
+
+    prediction : list of float
+        List of prediction confidence of each class
+    """
+
     from tensorflow import keras
     import numpy as np
     import tensorflow as tf
@@ -194,6 +305,21 @@ def PredictImage(path, Model):
     return prediction
 
 def ShowPrediction(path, prediction, class_names):
+    """Shows the prediction of a single image
+
+    Parameters
+    ----------
+    path : str
+        The filepath to the image to predict on
+    
+    prediction : PredictImage output
+        The prediction made on the image
+
+    class_names : list of str
+        A list of the class names in correct order (use train_generator.class_indices 
+        to see the right order)
+    """
+
     import numpy as np
     import matplotlib.pyplot as plt
     import matplotlib.image as mpimg
