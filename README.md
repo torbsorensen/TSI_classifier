@@ -66,9 +66,9 @@ CLASSIFICATION REPORT
 
 ||Accuracy|Recall|F1|
 |-----------|-----------|-----------|-----------|
-|Fog|1|1|1|
-|Ice|1|1|1|
-|None|1|1|1|
+|Fog |0.25|0.89|0.39|
+|Ice |0.24|0.48|0.32|
+|None|0.80|0.36|0.50|
 
 ### 40-50%
 
@@ -84,9 +84,9 @@ CLASSIFICATION REPORT
 
 ||Accuracy|Recall|F1|
 |-----------|-----------|-----------|-----------|
-|Fog|1|1|1|
-|Ice|1|1|1|
-|None|1|1|1|
+|Fog |0.17|0.85|0.28|
+|Ice |0.37|0.65|0.47|
+|None|0.82|0.37|0.51|
 
 ### 50-60%
 
@@ -102,9 +102,9 @@ CLASSIFICATION REPORT
 
 ||Accuracy|Recall|F1|
 |-----------|-----------|-----------|-----------|
-|Fog|1|1|1|
-|Ice|1|1|1|
-|None|1|1|1|
+|Fog |0.60|1.00|0.75|
+|Ice |0.67|0.99|0.80|
+|None|0.99|0.58|0.73|
 
 
 The result from evaluating the model on the test dataset is the following. See notes about the reliability of the test set above.
