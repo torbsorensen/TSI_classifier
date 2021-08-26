@@ -38,9 +38,7 @@ The file predict_functions.py contains supporting functions used in all notebook
 
 ## Results
 
-The best results have shown from the transfer learning approach with fine tuning. The best model is saved in /saved_models/final_model. The confusion matrix and classification report produced by the final model on the unseen /data/test set are shown underneath. Note however, that the test set is not perfect as only very few ice and fogbow occur. 
-
-The final model is set up in the transfer.ipynb-file and has undergone 13 epochs of transfer learning and 20 epochs of finetuning, and had a validation loss of 0.1363 and validation accuracy of 0.9842.
+The best results have shown from the transfer learning approach with fine tuning. The best model is saved in /saved_models/final_model. It was set up in the transfer.ipynb-file and has undergone 13 epochs of transfer learning and 20 epochs of finetuning, and had a validation loss of 0.1363 and validation accuracy of 0.9842.
 
 Loss and accuracy graphs were not obtained for all training due to interruption in training, but the graphs for the transfer learning part is shown hereunder:
 
@@ -50,7 +48,7 @@ The final model is in saved_models/final_model
 
 ## Uncertainties
 
-To assess the uncertainties of the final model, I have first predicted the classification of all available data and then selected 100 random images from each classification for each of the decile interval of confidence that contains 100 images, and manually inspected evaluated the classifications. The result of this is presented in following confusion matrix and classification report:
+To assess the uncertainties of the final model, I have first predicted the classification of 272 random dates (out of a total ≈1300) and then selected 100 random images from each classification for each of the decile interval of confidence that contains 100 images, and manually evaluated the classifications. No predictions had prediction confidence below 30% (below 33% is theoretical impossible for a 3 class problem) or above 60% (57.61% was highest at evaluation time). The result of this is presented in following confusion matrix and classification report:
 
 ### 30-40%
 
@@ -106,24 +104,6 @@ CLASSIFICATION REPORT
 |Ice |0.67|0.99|0.80|
 |None|0.99|0.58|0.73|
 
-
-The result from evaluating the model on the test dataset is the following. See notes about the reliability of the test set above.
-
-CONFUSION MATRIX 
-
-|True\Prediction|Fog|Ice|None|
-|-----------|-----------|-----------|-----------|
-|Fog|211|77|17|
-|Ice|0|117|753|
-|None|144|291|5357|
-
-CLASSIFICATION REPORT
-
-||Accuracy|Recall|F1|
-|-----------|-----------|-----------|-----------|
-|Fog|0.59|0.69|0.64|
-|Ice|0.24|0.13|0.17|
-|None|0.87|0.92|0.90|
 
 ## Improving the classifier
 
