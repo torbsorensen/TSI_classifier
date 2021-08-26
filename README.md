@@ -52,21 +52,25 @@ To assess the uncertainties of the final model, I have first predicted the class
 
 ### 30-40%
 
-CONFUSION MATRIX 
+<table>
+<tr><th>Confusion Matrix</th><th>Classification Report</th></tr>
+<tr><td>
 
 |True\Prediction|Fog|Ice|None|
 |-----------|-----------|-----------|-----------|
 |Fog |25|1 |2 |
 |Ice |8 |24|18|
 |None|67|75|80|
- 
-CLASSIFICATION REPORT
+
+</td><td>
 
 ||Accuracy|Recall|F1|
 |-----------|-----------|-----------|-----------|
 |Fog |0.25|0.89|0.39|
 |Ice |0.24|0.48|0.32|
 |None|0.80|0.36|0.50|
+
+</td></tr> </table>
 
 ### 40-50%
 
@@ -115,21 +119,3 @@ While the final classifier is useful there is still room for improvement. Here i
 * Try different pre-trained models
 * Continue training for longer
 * Building custom model
-
-
-
-<table>
-<tr><th>Table 1 Heading 1 </th><th>Table 1 Heading 2</th></tr>
-<tr><td>
-
-|Table 1| Middle | Table 2|
-|--|--|--|
-|a| not b|and c |
-
-</td><td>
-
-|b|1|2|3| 
-|--|--|--|--|
-|a|s|d|f|
-
-</td></tr> </table>
