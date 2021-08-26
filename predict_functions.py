@@ -38,7 +38,13 @@ def MassPredictor(tar_files_path, predictions_path, model, excludelist=[]):
 
     print("Predicting on",len(tar_list), "dataset(s): \n",tar_list)
 
-    temp_path = "temp/temporary_files"
+    temp_path = "temp/temporary_files_78654567654"
+    
+    try:
+        shutil.rmtree(temp_path)
+    except FileNotFoundError:
+        pass
+    
     pathlib.Path(temp_path).mkdir(parents=True, exist_ok=True)
 
     for i, tar_file in enumerate(tar_list):
@@ -67,10 +73,10 @@ def MassPredictor(tar_files_path, predictions_path, model, excludelist=[]):
                 np.savetxt(os.path.join(predictions_path, tar_file[3:11] + '.csv'), prediction_list, delimiter=',',fmt='%s')
             else:
                 continue
-        except:    # XXXX as error:
-            print('File currupted, ignoring')
+        except:
+            print('File currupted/wrong format, ignoring...')
            
-    shutil.rmtree(temp_path) 
+     
 
 
 
