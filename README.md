@@ -74,7 +74,9 @@ To assess the uncertainties of the final model, I have first predicted the class
 
 ### 40-50%
 
-CONFUSION MATRIX 
+<table>
+<tr><th>Confusion Matrix</th><th>Classification Report</th></tr>
+<tr><td>
 
 |True\Prediction|Fog|Ice|None|
 |-----------|-----------|-----------|-----------|
@@ -82,7 +84,7 @@ CONFUSION MATRIX
 |Ice |5 |37|15|
 |None|78|63|82|
 
-CLASSIFICATION REPORT
+</td><td>
 
 ||Accuracy|Recall|F1|
 |-----------|-----------|-----------|-----------|
@@ -90,9 +92,13 @@ CLASSIFICATION REPORT
 |Ice |0.37|0.65|0.47|
 |None|0.82|0.37|0.51|
 
+</td></tr> </table>
+
 ### 50-60%
 
-CONFUSION MATRIX 
+<table>
+<tr><th>Confusion Matrix</th><th>Classification Report</th></tr>
+<tr><td>
 
 |True\Prediction|Fog|Ice|None|
 |-----------|-----------|-----------|-----------|
@@ -100,7 +106,7 @@ CONFUSION MATRIX
 |Ice |0 |67|1 |
 |None|40|33|99|
 
-CLASSIFICATION REPORT
+</td><td>
 
 ||Accuracy|Recall|F1|
 |-----------|-----------|-----------|-----------|
@@ -108,6 +114,7 @@ CLASSIFICATION REPORT
 |Ice |0.67|0.99|0.80|
 |None|0.99|0.58|0.73|
 
+</td></tr> </table>
 
 ## Improving the classifier
 
