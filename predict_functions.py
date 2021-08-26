@@ -21,7 +21,6 @@ def MassPredictor(tar_files_path, predictions_path, model, excludelist=[]):
         Filenames of files that should not be predicted, e.g. other files in folder, files already 
         predicted or corrupted files (default is none)
     """
-
     import tarfile
     import re
     import os
@@ -44,28 +43,34 @@ def MassPredictor(tar_files_path, predictions_path, model, excludelist=[]):
 
     for i, tar_file in enumerate(tar_list):
         print(i+1,"/", len(tar_list),": Predicting ", tar_file)
-        tar = tarfile.open(os.path.join(tar_files_path,tar_file), "r:gz")
-        tar.extractall(temp_path, members=[m for m in tar.getmembers() if jpg.search(m.name)])
+        try:
+            tar = tarfile.open(os.path.join(tar_files_path,tar_file), "r:gz")
+            tar.extractall(temp_path, members=[m for m in tar.getmembers() if jpg.search(m.name)])
 
-        img_list = os.listdir(temp_path)
-        prediction_list = np.zeros((len(img_list),6))
+            img_list = os.listdir(temp_path)
+            prediction_list = np.zeros((len(img_list),6))
 
-        for n, img in enumerate(img_list):
-            img_path = os.path.join(temp_path, img)
-            pred_raw = PredictImage(img_path, model)
-            prediction = np.argmax(pred_raw)
-            prediction_list[n,0] = img[:14]
-            prediction_list[n,1] = prediction
-            prediction_list[n,2] = pred_raw[0][prediction]
-            prediction_list[n,3] = pred_raw[0][0]
-            prediction_list[n,4] = pred_raw[0][1]
-            prediction_list[n,5] = pred_raw[0][2]
+            if len(img_list) > 0:
+                for n, img in enumerate(img_list):
+                    img_path = os.path.join(temp_path, img)
+                    pred_raw = PredictImage(img_path, model)
+                    prediction = np.argmax(pred_raw)
+                    prediction_list[n,0] = img[:14]
+                    prediction_list[n,1] = prediction
+                    prediction_list[n,2] = pred_raw[0][prediction]
+                    prediction_list[n,3] = pred_raw[0][0]
+                    prediction_list[n,4] = pred_raw[0][1]
+                    prediction_list[n,5] = pred_raw[0][2]
 
-        prediction_list = prediction_list[prediction_list[:, 0].argsort()]
+                prediction_list = prediction_list[prediction_list[:, 0].argsort()]
 
-        np.savetxt(os.path.join(predictions_path, tar_file[3:11] + '.csv'), prediction_list, delimiter=',',fmt='%s')
-
-        shutil.rmtree(temp_path) 
+                np.savetxt(os.path.join(predictions_path, tar_file[3:11] + '.csv'), prediction_list, delimiter=',',fmt='%s')
+            else:
+                continue
+        except:    # XXXX as error:
+            print('File currupted, ignoring')
+           
+    shutil.rmtree(temp_path) 
 
 
 
@@ -109,7 +114,6 @@ def FilterPredictions(predicted_path, lower_limit, higher_limit=1.0, excludelist
     no_detections : list of str
         List of images with none detected within defined limits 
     """
-
     import csv
     import os
     import numpy as np
@@ -247,7 +251,6 @@ def TrainingProgress(history, epochs, filename_path):
     filename_path : str
         The filepath to where the graph is saved
     """
-    
     import matplotlib.pyplot as plt
 
     acc = history.history['categorical_accuracy']
@@ -292,7 +295,6 @@ def PredictImage(path, Model):
     prediction : list of float
         List of prediction confidence of each class
     """
-
     from tensorflow import keras
     import numpy as np
     import tensorflow as tf
@@ -319,7 +321,6 @@ def ShowPrediction(path, prediction, class_names):
         A list of the class names in correct order (use train_generator.class_indices 
         to see the right order)
     """
-
     import numpy as np
     import matplotlib.pyplot as plt
     import matplotlib.image as mpimg
