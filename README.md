@@ -46,7 +46,7 @@ Loss and accuracy graphs were not obtained for all training due to interruption 
 
 The final model is in saved_models/final_model.
 
-Based on the predictions I've made some quick plots to get a feeling of the results. I've looked at predictions over a random day, average daily prediction and average monthly predictions:
+Based on the predictions I've made some quick plots to get a feeling of the results. I've looked at predictions over a random day, average daily prediction for all months and for June only, and average monthly predictions:
 
 #### Day predictions
 
@@ -58,11 +58,21 @@ Based on the predictions I've made some quick plots to get a feeling of the resu
 
 <img src="analysis/3_daily_avg_prediction_seperated.png" alt="daily_avg_prediction_seperated" width="600"/>
 
+#### Daily average for June only
+
+This might be interesting as there is constantly daylight and fogbows therefore can be detected at all times.
+
+<img src="analysis/6_daily_june_avg_prediction_all.png" alt="daily_avg_june_prediction_all" width="600"/>
+
+<img src="analysis/7_daily_june_avg_prediction_seperated.png" alt="daily_avg_june_prediction_seperated" width="600"/>
+
 #### Monthly average
 
 <img src="analysis/4_monthly_avg_prediction_all.png" alt="monthly_avg_prediction_all" width="600"/>
 
 <img src="analysis/5_monthly_avg_prediction_seperated.png" alt="monthly_avg_prediction_seperated" width="600"/>
+
+Note that the first and last month are based on significantly less observations than other months.
 
 ## Uncertainties
 
