@@ -48,13 +48,16 @@ def MassPredictor(tar_files_path, predictions_path, model, excludelist=[]):
     pathlib.Path(temp_path).mkdir(parents=True, exist_ok=True)
 
     for i, tar_file in enumerate(tar_list):
-        print(i+1,"/", len(tar_list),": Predicting ", tar_file)
+        shutil.rmtree(temp_path)
+        pathlib.Path(temp_path).mkdir(parents=True, exist_ok=True)
         try:
             tar = tarfile.open(os.path.join(tar_files_path,tar_file), "r:gz")
             tar.extractall(temp_path, members=[m for m in tar.getmembers() if jpg.search(m.name)])
 
             img_list = os.listdir(temp_path)
             prediction_list = np.zeros((len(img_list),6))
+            
+            print(i+1,"/", len(tar_list),": Predicting ", tar_file,'- Number of images in file:',len(img_list))
 
             if len(img_list) > 0:
                 for n, img in enumerate(img_list):
@@ -74,7 +77,7 @@ def MassPredictor(tar_files_path, predictions_path, model, excludelist=[]):
             else:
                 continue
         except:
-            print('File currupted/wrong format, ignoring...')
+            print(tar_file,'- File currupted/wrong format, ignoring...')
            
      
 
