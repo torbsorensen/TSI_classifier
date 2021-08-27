@@ -44,7 +44,19 @@ Loss and accuracy graphs were not obtained for all training due to interruption 
 
 <img src="T2.png" alt="trainingprogress" width="500"/>
 
-The final model is in saved_models/final_model
+The final model is in saved_models/final_model.
+
+Based on the predictions I've made some quick plots to get a feeling of the results. I've looked at predictions over a random day, average daily prediction and average monthly predictions:
+
+<img src="analysis/1_day_prediction.png" alt="day prediction" width="600"/>
+
+<img src="analysis/2_daily_avg_prediction_all.png" alt="daily_avg_prediction_all" width="600"/>
+
+<img src="analysis/3_daily_avg_prediction_seperated.png" alt="daily_avg_prediction_seperated" width="600"/>
+
+<img src="analysis/analysis/4_monthly_avg_prediction_all.png" alt="monthly_avg_prediction_all" width="600"/>
+
+<img src="analysis/5_monthly_avg_prediction_seperated.png" alt="monthly_avg_prediction_seperated" width="600"/>
 
 ## Uncertainties
 
