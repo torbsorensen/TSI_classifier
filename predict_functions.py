@@ -159,9 +159,9 @@ def FilterPredictions(predicted_path, lower_limit, higher_limit=1.0, excludelist
 
 
 # moving detections to inspection folder
-def ExportFilteredFiles(tar_files_path, export_path, fog_detections,ice_detections,no_detections):
+def ExportFilteredFiles(tar_files_path, export_path, fog3040, ice3040, no3040, fog4050=[], ice4050=[], no4050=[], fog5060=[], ice5060=[], no5060=[]):
     """Copies the selected files from compressed tar.gz files to a new folder, sorted according 
-    to classification.
+    to classification and in confidence intervals.
 
     Parameters
     ----------
@@ -172,14 +172,16 @@ def ExportFilteredFiles(tar_files_path, export_path, fog_detections,ice_detectio
     export_path : str
         The filepath where the photos are copied to. Folder should already exist. 
 
-    fog_detections : list of str
-        The list of fog detections outputted by FilterPredictions
+    fog3040 : list of str
+        The list of fog detections in 30-40% confidence interval outputted by FilterPredictions
 
-    ice_detections : list of str
-        The list of ice detections outputted by FilterPredictions
+    ice3040 : list of str
+        The list of ice detections in 30-40% confidence interval outputted by FilterPredictions
 
-    no_detections : list of str
-        The list of none detections outputted by FilterPredictions
+    no3040 : list of str
+        The list of none detections in 30-40% confidence interval outputted by FilterPredictions
+    
+    and so on...
     """
 
     import re
@@ -187,64 +189,127 @@ def ExportFilteredFiles(tar_files_path, export_path, fog_detections,ice_detectio
     import pathlib
     import os
     import shutil
-
+    from tqdm.notebook import tqdm
+    
     temp_path = "temp/temporary_files"
     pathlib.Path(temp_path).mkdir(parents=True, exist_ok=True)
 
     jpg = re.compile(r'.*?jpg.*?')
 
-    pathlib.Path(os.path.join(export_path, 'no_det')).mkdir(parents=True, exist_ok=True)
-    pathlib.Path(os.path.join(export_path, 'ice_det')).mkdir(parents=True, exist_ok=True)
-    pathlib.Path(os.path.join(export_path, 'fog_det')).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(os.path.join(export_path, '030_040/no_det')).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(os.path.join(export_path, '030_040/ice_det')).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(os.path.join(export_path, '030_040/fog_det')).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(os.path.join(export_path, '040_050/no_det')).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(os.path.join(export_path, '040_050/ice_det')).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(os.path.join(export_path, '040_050/fog_det')).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(os.path.join(export_path, '050_060/no_det')).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(os.path.join(export_path, '050_060/ice_det')).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(os.path.join(export_path, '050_060/fog_det')).mkdir(parents=True, exist_ok=True)
+    
+    no34_det_datelist = []
+    no34_det_filelist = []
+    fog34_det_datelist = []
+    fog34_det_filelist = []
+    ice34_det_datelist = []
+    ice34_det_filelist = []
+    
+    no45_det_datelist = []
+    no45_det_filelist = []
+    fog45_det_datelist = []
+    fog45_det_filelist = []
+    ice45_det_datelist = []
+    ice45_det_filelist = []
+    
+    no56_det_datelist = []
+    no56_det_filelist = []
+    fog56_det_datelist = []
+    fog56_det_filelist = []
+    ice56_det_datelist = []
+    ice56_det_filelist = []
 
-    no_det_datelist = []
-    no_det_filelist = []
-    fog_det_datelist = []
-    fog_det_filelist = []
-    ice_det_datelist = []
-    ice_det_filelist = []
+    for i in range(len(no3040[:,0])):
+        no34_det_datelist.append('tsi' + str(no3040[:,0][i])[:8] + '.tar.gz')
+        no34_det_filelist.append(str(no3040[:,0][i])[:-2] + '.jpg')
+    no34_det_datelist = list(dict.fromkeys(no34_det_datelist))
 
-    for i in range(len(no_detections[:,0])):
-        no_det_datelist.append('tsi' + str(no_detections[:,0][i])[:8] + '.tar.gz')
-        no_det_filelist.append(str(no_detections[:,0][i])[:-2] + '.jpg')
-    no_det_datelist = list(dict.fromkeys(no_det_datelist))
+    for i in range(len(fog3040[:,0])):
+        fog34_det_datelist.append('tsi' + str(fog3040[:,0][i])[:8] + '.tar.gz')
+        fog34_det_filelist.append(str(fog3040[:,0][i])[:-2] + '.jpg')
+    fog34_det_datelist = list(dict.fromkeys(fog34_det_datelist))
 
-    for i in range(len(fog_detections[:,0])):
-        fog_det_datelist.append('tsi' + str(fog_detections[:,0][i])[:8] + '.tar.gz')
-        fog_det_filelist.append(str(fog_detections[:,0][i])[:-2] + '.jpg')
-    fog_det_datelist = list(dict.fromkeys(fog_det_datelist))
+    for i in range(len(ice3040[:,0])):
+        ice34_det_datelist.append('tsi' + str(ice3040[:,0][i])[:8] + '.tar.gz')
+        ice34_det_filelist.append(str(ice3040[:,0][i])[:-2] + '.jpg')
+    ice34_det_datelist = list(dict.fromkeys(ice34_det_datelist))
 
-    for i in range(len(ice_detections[:,0])):
-        ice_det_datelist.append('tsi' + str(ice_detections[:,0][i])[:8] + '.tar.gz')
-        ice_det_filelist.append(str(ice_detections[:,0][i])[:-2] + '.jpg')
-    ice_det_datelist = list(dict.fromkeys(ice_det_datelist))
+    for i in range(len(no4050[:,0])):
+        no45_det_datelist.append('tsi' + str(no4050[:,0][i])[:8] + '.tar.gz')
+        no45_det_filelist.append(str(no4050[:,0][i])[:-2] + '.jpg')
+    no45_det_datelist = list(dict.fromkeys(no45_det_datelist))
 
+    for i in range(len(fog4050[:,0])):
+        fog45_det_datelist.append('tsi' + str(fog4050[:,0][i])[:8] + '.tar.gz')
+        fog45_det_filelist.append(str(fog4050[:,0][i])[:-2] + '.jpg')
+    fog45_det_datelist = list(dict.fromkeys(fog45_det_datelist))
 
-    for date in no_det_datelist:
+    for i in range(len(ice4050[:,0])):
+        ice45_det_datelist.append('tsi' + str(ice4050[:,0][i])[:8] + '.tar.gz')
+        ice45_det_filelist.append(str(ice4050[:,0][i])[:-2] + '.jpg')
+    ice45_det_datelist = list(dict.fromkeys(ice45_det_datelist))
+    
+    for i in range(len(no5060[:,0])):
+        no56_det_datelist.append('tsi' + str(no5060[:,0][i])[:8] + '.tar.gz')
+        no56_det_filelist.append(str(no5060[:,0][i])[:-2] + '.jpg')
+    no56_det_datelist = list(dict.fromkeys(no56_det_datelist))
+
+    for i in range(len(fog5060[:,0])):
+        fog56_det_datelist.append('tsi' + str(fog5060[:,0][i])[:8] + '.tar.gz')
+        fog56_det_filelist.append(str(fog5060[:,0][i])[:-2] + '.jpg')
+    fog56_det_datelist = list(dict.fromkeys(fog56_det_datelist))
+
+    for i in range(len(ice5060[:,0])):
+        ice56_det_datelist.append('tsi' + str(ice5060[:,0][i])[:8] + '.tar.gz')
+        ice56_det_filelist.append(str(ice5060[:,0][i])[:-2] + '.jpg')
+    ice56_det_datelist = list(dict.fromkeys(ice56_det_datelist))
+    
+    all_datelists = no34_det_datelist + ice34_det_datelist + fog34_det_datelist + no45_det_datelist + fog45_det_datelist+ice45_det_datelist+no56_det_datelist+fog56_det_datelist+ ice56_det_datelist # the list of tar files to be unpacked
+    
+    all_datelists = list(dict.fromkeys(all_datelists)) # removes dublicates
+    
+    
+    for date in tqdm(all_datelists):
         tar = tarfile.open(os.path.join(tar_files_path,date), "r:gz")
         tar.extractall(temp_path, members=[m for m in tar.getmembers() if jpg.search(m.name)])
-        inspection_files = [s for s in no_det_filelist if date[3:11] in s]
-        for file in inspection_files:
-            os.rename(os.path.join(temp_path, file), os.path.join(export_path, 'no_det', file))
-    print('no_detections done')    
-
-    for date in ice_det_datelist:
-        tar = tarfile.open(os.path.join(tar_files_path,date), "r:gz")
-        tar.extractall(temp_path, members=[m for m in tar.getmembers() if jpg.search(m.name)])
-        inspection_files = [s for s in ice_det_filelist if date[3:11] in s]
-        for file in inspection_files:
-            os.rename(os.path.join(temp_path, file), os.path.join(export_path, 'ice_det', file))
-    print('ice_detections done')
-
-    for date in fog_det_datelist:
-        tar = tarfile.open(os.path.join(tar_files_path,date), "r:gz")
-        tar.extractall(temp_path, members=[m for m in tar.getmembers() if jpg.search(m.name)])
-        inspection_files = [s for s in fog_det_filelist if date[3:11] in s]
-        for file in inspection_files:
-            os.rename(os.path.join(temp_path, file), os.path.join(export_path, 'fog_det', file))
-    print('fog_detections done')
-    shutil.rmtree(temp_path) 
-
+        non34_files = [s for s in no34_det_filelist if date[3:11] in s]
+        ice34_files = [s for s in ice34_det_filelist if date[3:11] in s]
+        fog34_files = [s for s in fog34_det_filelist if date[3:11] in s]
+        non45_files = [s for s in no45_det_filelist if date[3:11] in s]
+        ice45_files = [s for s in ice45_det_filelist if date[3:11] in s]
+        fog45_files = [s for s in fog45_det_filelist if date[3:11] in s]
+        non56_files = [s for s in no56_det_filelist if date[3:11] in s]
+        ice56_files = [s for s in ice56_det_filelist if date[3:11] in s]
+        fog56_files = [s for s in fog56_det_filelist if date[3:11] in s]
+        
+        for file in non34_files:
+            os.rename(os.path.join(temp_path, file), os.path.join(export_path, '030_040/no_det', file))
+        for file in ice34_files:
+            os.rename(os.path.join(temp_path, file), os.path.join(export_path, '030_040/ice_det', file))
+        for file in fog34_files:
+            os.rename(os.path.join(temp_path, file), os.path.join(export_path, '030_040/fog_det', file))
+        for file in non45_files:
+            os.rename(os.path.join(temp_path, file), os.path.join(export_path, '040_050/no_det', file))
+        for file in ice45_files:
+            os.rename(os.path.join(temp_path, file), os.path.join(export_path, '040_050/ice_det', file))
+        for file in fog45_files:
+            os.rename(os.path.join(temp_path, file), os.path.join(export_path, '040_050/fog_det', file))
+        for file in non56_files:
+            os.rename(os.path.join(temp_path, file), os.path.join(export_path, '050_060/no_det', file))
+        for file in ice56_files:
+            os.rename(os.path.join(temp_path, file), os.path.join(export_path, '050_060/ice_det', file))
+        for file in fog56_files:
+            os.rename(os.path.join(temp_path, file), os.path.join(export_path, '050_060/fog_det', file))        
+        
+    shutil.rmtree(temp_path)
 
 def TrainingProgress(history, epochs, filename_path):
     """Shows and saves graph of training progress
