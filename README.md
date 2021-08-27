@@ -54,7 +54,7 @@ Based on the predictions I've made some quick plots to get a feeling of the resu
 
 <img src="analysis/3_daily_avg_prediction_seperated.png" alt="daily_avg_prediction_seperated" width="600"/>
 
-<img src="analysis/analysis/4_monthly_avg_prediction_all.png" alt="monthly_avg_prediction_all" width="600"/>
+<img src="analysis/4_monthly_avg_prediction_all.png" alt="monthly_avg_prediction_all" width="600"/>
 
 <img src="analysis/5_monthly_avg_prediction_seperated.png" alt="monthly_avg_prediction_seperated" width="600"/>
 
